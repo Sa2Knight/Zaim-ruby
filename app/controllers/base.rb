@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative '../models/Zaim'
+require_relative '../models/util'
 
 class Base < Sinatra::Base
 
