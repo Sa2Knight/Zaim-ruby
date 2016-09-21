@@ -35,7 +35,7 @@ class Zaim
     get("home/category")
   end
 
-  def get_payments(category , genre , amount)
+  def create_payments(category , genre , amount)
     post("home/money/payment" , category_id: category, genre_id: genre, amount: amount)
   end
 
