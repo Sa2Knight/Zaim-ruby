@@ -28,8 +28,25 @@ class Zaim
 
   private
   def get_verify
-    verify = @access_token.get("#{API_URL}home/user/verify")
-    JSON.parse(verify.body)
+    get("home/user/verify")
+  end
+
+  def get_categories
+    get("home/category")
+  end
+
+  def get_payments(category , genre , amount)
+    post("home/money/payment" , category_id: category, genre_id: genre, amount: amount)
+  end
+
+  def get(url)
+    response = @access_token.get("#{API_URL}#{url}")
+    JSON.parse(response.body)
+  end
+
+  def post(url , params = nil)
+    response = @access_token.post("#{API_URL}#{url}" , params)
+    JSON.parse(response.body)
   end
 
 end
