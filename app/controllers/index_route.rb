@@ -5,7 +5,7 @@ class IndexRoute < Base
   # get '/' - トップページへのアクセス
   #---------------------------------------------------------------------
   get '/' do
-    'Hello Zaim!!'
+    @zaim.username
   end
 
 end

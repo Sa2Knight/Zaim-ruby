@@ -22,6 +22,7 @@ class Base < Sinatra::Base
   # before - 全てのURLにおいて初めに実行される
   #---------------------------------------------------------------------
   before do
+    @zaim = Zaim.new
   end
 
 end
