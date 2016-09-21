@@ -1,4 +1,5 @@
 source "https://rubygems.org" 
 gem "sinatra" 
 gem "pry" 
-gem "unicorn" 
+gem "unicorn"
+gem "oauth"
