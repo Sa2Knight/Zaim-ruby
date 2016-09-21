@@ -1,6 +1,6 @@
-require_relative 'zaim'
+require_relative 'base'
 
-class IndexRoute < Zaim
+class IndexRoute < Base
 
   # get '/' - トップページへのアクセス
   #---------------------------------------------------------------------

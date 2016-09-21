@@ -1,6 +1,7 @@
 require 'sinatra/base'
+require_relative '../models/Zaim'
 
-class Zaim < Sinatra::Base
+class Base < Sinatra::Base
 
   set :views, File.dirname(__FILE__) + '/../views'
   set :public_folder, File.dirname(__FILE__) + '/../public'
