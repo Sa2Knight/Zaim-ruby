@@ -26,9 +26,25 @@ class Zaim
     get_verify["me"]["name"]
   end
 
+  # 指定した日にちの出費
+  # dateはYYYY-MM-DD形式の文字列
+  #--------------------------------------------------------------------
+  def payment_of_day(date , params = {})
+    params["start_date"] = date
+    params["end_date"] = date
+    params["date"] = date
+    params["mode"] = "payment"
+    get_payments(params)
+  end
+
   private
   def get_verify
     get("home/user/verify")
+  end
+
+  def get_payments(params)
+    url = Util.make_url("home/money" , params)
+    get(url)
   end
 
   def get_categories
