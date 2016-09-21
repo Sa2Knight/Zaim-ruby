@@ -26,7 +26,17 @@ class Zaim
     get_verify["me"]["name"]
   end
 
-  # 指定した日にちの出費
+  # 総支出額を取得
+  #--------------------------------------------------------------------
+  def total_spending(params = {})
+    params["mode"] = "payment"
+    sum = 0
+    payments = get_payments(params)
+    payments.each {|pay| sum += pay["amount"]}
+    return sum
+  end
+
+  # 指定した日にちの出費内容
   # dateはYYYY-MM-DD形式の文字列
   #--------------------------------------------------------------------
   def payment_of_day(date , params = {})
@@ -37,6 +47,7 @@ class Zaim
     get_payments(params)
   end
 
+  # 以下、各種API呼び出しメソッド
   private
   def get_verify
     get("home/user/verify")
@@ -44,7 +55,7 @@ class Zaim
 
   def get_payments(params)
     url = Util.make_url("home/money" , params)
-    get(url)
+    get(url)["money"]
   end
 
   def get_categories
