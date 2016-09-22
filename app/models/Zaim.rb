@@ -36,6 +36,19 @@ class Zaim
     return sum
   end
 
+  # 月ごとの支出を取得
+  #--------------------------------------------------------------------
+  def monthly_spending(params = {})
+    params["mode"] = "payment"
+    payments = get_payments(params)
+    monthly = Hash.new {|h,k| h[k] = 0}
+    payments.each do |pay|
+      month = Util.to_month(pay["date"])
+      monthly[month] += pay["amount"]
+    end
+    return monthly
+  end
+
   # 指定した日にちの出費内容
   # dateはYYYY-MM-DD形式の文字列
   #--------------------------------------------------------------------
