@@ -5,7 +5,7 @@ class IndexRoute < Base
   # get '/' - トップページへのアクセス
   #---------------------------------------------------------------------
   get '/' do
-    @zaim.username
+    erb :index
   end
 
 end
