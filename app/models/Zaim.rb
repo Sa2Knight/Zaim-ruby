@@ -68,6 +68,14 @@ class Zaim
     target[0]["id"]
   end
 
+  # ジャンル名をIDに変換する(同名のジャンルが複数ある場合に非対応)
+  #--------------------------------------------------------------------
+  def genre_to_id(genre)
+    genres = get_genres
+    target = genres.select {|g| g['name'] == genre}
+    target[0]["id"]
+  end
+
   # 以下、各種API呼び出しメソッド
   private
   def get_verify
@@ -81,6 +89,10 @@ class Zaim
 
   def get_categories
     get("home/category")["categories"]
+  end
+
+  def get_genres
+    get("home/genre")["genres"]
   end
 
   def create_payments(category , genre , amount)
