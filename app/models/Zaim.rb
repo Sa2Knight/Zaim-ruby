@@ -60,6 +60,14 @@ class Zaim
     get_payments(params)
   end
 
+  # カテゴリ名をIDに変換する
+  #--------------------------------------------------------------------
+  def category_to_id(category)
+    categories = get_categories
+    target = categories.select {|c| c['name'] == category}
+    target[0]["id"]
+  end
+
   # 以下、各種API呼び出しメソッド
   private
   def get_verify
@@ -72,7 +80,7 @@ class Zaim
   end
 
   def get_categories
-    get("home/category")
+    get("home/category")["categories"]
   end
 
   def create_payments(category , genre , amount)
