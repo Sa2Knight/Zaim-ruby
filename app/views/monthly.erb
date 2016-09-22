@@ -1,0 +1,15 @@
+<h1>月別集計 <%= @target %></h1>
+<table border="1">
+  <thead>
+    <th>年月</th>
+    <th>出費</th>
+  </thead>
+  <tbody>
+    <% @monthly.each do |date , spending| %>
+      <tr>
+        <td><%= date %></td>
+        <td><%= spending %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
