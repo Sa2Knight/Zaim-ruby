@@ -1,5 +1,6 @@
 require 'yaml'
 require 'date'
+require 'uri'
 
 class Util
 
@@ -22,7 +23,8 @@ class Util
         url += "&#{k}=#{v}"
       end
     end
-    return url
+    url_escape = URI.escape(url)
+    return url_escape
   end
 
   # yyyy-mm-dd を yyyy-mmに変換する
