@@ -35,6 +35,12 @@ class Zaim
     return sum
   end
 
+  # 支払先別のランキングを取得
+  #--------------------------------------------------------------------
+  def place_ranking(params = {})
+    create_ranking("place")
+  end
+
   # 月ごとの支出を取得
   #--------------------------------------------------------------------
   def monthly_spending(params = {})
@@ -57,13 +63,13 @@ class Zaim
     get_payments(params)
   end
 
-  # 支払先のお店別のランキングを生成
+  # ランキングを生成
   #--------------------------------------------------------------------
-  def place_ranking(params = {})
+  def create_ranking(target , params = {})
     payments = get_payments(params)
     places = Hash.new {|h,k| h[k] = {:num => 0 , :amount => 0}}
     payments.each do |pay|
-      place = pay["place"]
+      place = pay[target]
       places[place][:num] += 1
       places[place][:amount] += pay["amount"]
     end
