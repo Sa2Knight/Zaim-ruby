@@ -44,28 +44,24 @@ class Zaim
   # カテゴリ別のランキングを取得
   #--------------------------------------------------------------------
   def category_ranking(params = {})
-    ranking_with_id = create_ranking("category_id")
-    ranking_with_name = {}
-    id_to_name = id_to_categories(ranking_with_id.keys)
-    ranking_with_id.each do |k , v|
-      name = id_to_name[k]
-      ranking_with_name[name] = v
+    ranking = create_ranking("category_id")
+    id_to_name = id_to_categories(ranking.map{|r| r[:key]})
+    ranking.each do |r|
+      name = id_to_name[r[:key]]
+      r[:key] = name
     end
-    ranking_with_name
   end
 
   # ジャンル別のランキングを取得
   # Todo: category_rankingとコード重複
   #--------------------------------------------------------------------
   def genre_ranking(params = {})
-    ranking_with_id = create_ranking("genre_id")
-    ranking_with_name = {}
-    id_to_name = id_to_genres(ranking_with_id.keys)
-    ranking_with_id.each do |k , v|
-      name = id_to_name[k]
-      ranking_with_name[name] = v
+    ranking = create_ranking("genre_id")
+    id_to_name = id_to_genres(ranking.map{|r| r[:key]})
+    ranking.each do |r|
+      name = id_to_name[r[:key]]
+      r[:key] = name
     end
-    ranking_with_name
   end
 
   # 月ごとの支出を取得
@@ -94,18 +90,16 @@ class Zaim
   #--------------------------------------------------------------------
   def create_ranking(key , params = {})
     payments = get_payments(params)
-    targets = Hash.new {|h,k| h[k] = {:num => 0 , :amount => 0}}
+    t_hash = Hash.new {|h,k| h[k] = {:num => 0 , :amount => 0}}
     payments.each do |pay|
       _key = pay[key]
-      targets[_key][:num] += 1
-      targets[_key][:amount] += pay["amount"]
+      t_hash[_key][:num] += 1
+      t_hash[_key][:amount] += pay["amount"]
     end
-    targets.delete("") #未入力は除外
-    targets_hash = {}
-    targets.sort_by {|k , v| -v[:num]}.each do |t|
-      targets_hash[t[0]] = t[1]
-    end
-    targets_hash
+    t_hash.delete("") #未入力は除外
+    t_array = []
+    t_hash.each {|k , v| t_array.push({:key => k}.merge!(v))}
+    t_array.sort_by {|t| -t[:num]}
   end
 
   # カテゴリ名をIDに変換する

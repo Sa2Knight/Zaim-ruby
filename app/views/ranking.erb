@@ -7,12 +7,12 @@
     <th>総額</th>
   </thead>
   <tbody>
-    <% @ranking.each_with_index do |(k , v) , idx| %>
+    <% @ranking.each_with_index do |r , idx| %>
     <tr>
       <td class="center"><%= idx + 1 %></td>
-      <td class="center"><%= k %></td>
-      <td class="right"><%= v[:num] %></td>
-      <td class="right"><%= to_kanji v[:amount] %></td>
+      <td class="center"><%= r[:key] %></td>
+      <td class="right"><%= r[:num] %></td>
+      <td class="right"><%= to_kanji r[:amount] %></td>
     </tr>
     <% end %>
   </tbody>
