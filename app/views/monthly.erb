@@ -8,12 +8,12 @@
     <% @monthly.each do |date , spending| %>
     <tr>
       <td><%= date %></td>
-      <td><%= to_kanji spending %></td>
+      <td style="text-align: right"><%= to_kanji spending %></td>
     </tr>
     <% end %>
     <tr>
       <td>合計</td>
-      <td><%= to_kanji @sum %></td>
+      <td style="text-align: right"><%= to_kanji @sum %></td>
     </tr>
   </tbody>
 </table>
