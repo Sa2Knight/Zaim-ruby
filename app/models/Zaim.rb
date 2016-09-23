@@ -29,7 +29,6 @@ class Zaim
   # 総支出額を取得
   #--------------------------------------------------------------------
   def total_spending(params = {})
-    params["mode"] = "payment"
     sum = 0
     payments = get_payments(params)
     payments.each {|pay| sum += pay["amount"]}
@@ -39,7 +38,6 @@ class Zaim
   # 月ごとの支出を取得
   #--------------------------------------------------------------------
   def monthly_spending(params = {})
-    params["mode"] = "payment"
     payments = get_payments(params)
     monthly = Hash.new {|h,k| h[k] = 0}
     payments.each do |pay|
@@ -56,7 +54,6 @@ class Zaim
     params["start_date"] = date
     params["end_date"] = date
     params["date"] = date
-    params["mode"] = "payment"
     get_payments(params)
   end
 
@@ -83,6 +80,7 @@ class Zaim
   end
 
   def get_payments(params)
+    params["mode"] = "payment"
     url = Util.make_url("home/money" , params)
     get(url)["money"]
   end
