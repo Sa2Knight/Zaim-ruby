@@ -53,4 +53,14 @@ class Util
     return "#{year}-#{month}"
   end
 
+  # ハッシュ配列から特定の要素をキーとしたハッシュに変換する
+  #--------------------------------------------------------------------
+  def self.array_to_hash(array , key , value)
+    hash = {}
+    array.each do |h|
+      hash[h[key]] = h[value]
+    end
+    hash
+  end
+
 end

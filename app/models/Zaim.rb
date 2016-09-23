@@ -94,6 +94,22 @@ class Zaim
     target[0]["id"]
   end
 
+  # category_idをカテゴリ名に変換する(リスト対応)
+  # [category_id] → {category_id => category_name}
+  #--------------------------------------------------------------------
+  def id_to_categories(categories)
+    categories_detail = get_categories.select {|c| categories.include?(c["id"])}
+    Util.array_to_hash(categories_detail , "id" , "name")
+  end
+
+  # genre_idをジャンル名に変換する(リスト対応)
+  # [genre_id] → {genre_id => genre_name}
+  #--------------------------------------------------------------------
+  def id_to_genres(genres)
+    genres_detail = get_genres.select {|c| genres.include?(c["id"])}
+    Util.array_to_hash(genres_detail , "id" , "name")
+  end
+
   # 以下、各種API呼び出しメソッド
   private
   def get_verify
