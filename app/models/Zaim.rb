@@ -65,17 +65,20 @@ class Zaim
 
   # ランキングを生成
   #--------------------------------------------------------------------
-  def create_ranking(target , params = {})
+  def create_ranking(key , params = {})
     payments = get_payments(params)
-    places = Hash.new {|h,k| h[k] = {:num => 0 , :amount => 0}}
+    targets = Hash.new {|h,k| h[k] = {:num => 0 , :amount => 0}}
     payments.each do |pay|
-      place = pay[target]
-      places[place][:num] += 1
-      places[place][:amount] += pay["amount"]
+      _key = pay[key]
+      targets[_key][:num] += 1
+      targets[_key][:amount] += pay["amount"]
     end
-    places.delete("") #未入力は除外
-    places = places.sort_by {|k , v| -v[:num]}
-    places
+    targets.delete("") #未入力は除外
+    targets_hash = {}
+    targets.sort_by {|k , v| -v[:num]}.each do |t|
+      targets_hash[t[0]] = t[1]
+    end
+    targets_hash
   end
 
   # カテゴリ名をIDに変換する
