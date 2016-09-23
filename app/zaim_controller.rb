@@ -22,6 +22,16 @@ class ZaimController < Sinatra::Base
     erb :monthly
   end
 
+  # /ranking - ランキングを表示
+  #---------------------------------------------------------------------
+  get '/ranking/?' do
+    if params[:target] == 'place'
+      @title = "支払先"
+      @ranking = @zaim.place_ranking
+    end
+    erb :ranking
+  end
+
   # helpers - ビューから利用する汎用メソッド
   #---------------------------------------------------------------------
   helpers do
