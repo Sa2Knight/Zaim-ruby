@@ -2,19 +2,19 @@
 <table border="1">
   <tr>
     <td>入力回数</td>
-    <td><%= @input_count %> 回</td>
+    <td><%= @input_count %>回</td>
   </tr>
   <tr>
     <td>総収入</td>
-    <td><%= to_kanji @total_income %> 円</td>
+    <td><%= to_kanji @total_income %>円</td>
   </tr>
   <tr>
     <td>総支出</td>
-    <td><%= to_kanji @total_spending %> 円</td>
+    <td><%= to_kanji @total_spending %>円</td>
   </tr>
   <tr>
     <td>収益</td>
-    <td><%= to_kanji(@total_income - @total_spending) %> 円</td>
+    <td><%= to_kanji(@total_income - @total_spending) %>円</td>
   </tr>
 </table>
 
