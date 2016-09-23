@@ -6,10 +6,14 @@
   </thead>
   <tbody>
     <% @monthly.each do |date , spending| %>
-      <tr>
-        <td><%= date %></td>
-        <td><%= spending %></td>
-      </tr>
+    <tr>
+      <td><%= date %></td>
+      <td><%= spending %></td>
+    </tr>
     <% end %>
+    <tr>
+      <td>合計</td>
+      <td><%= @sum %></td>
+    </tr>
   </tbody>
 </table>

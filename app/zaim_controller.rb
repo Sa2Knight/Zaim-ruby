@@ -17,6 +17,7 @@ class ZaimController < Sinatra::Base
   #--------------------------------------------------------------------
   get '/monthly/?' do
     @monthly = @zaim.monthly_spending(params)
+    @sum = @monthly.values.inject {|sum , v| sum + v}
     @target = params['link']
     erb :monthly
   end
