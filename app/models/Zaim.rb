@@ -57,6 +57,21 @@ class Zaim
     get_payments(params)
   end
 
+  # 支払先のお店別のランキングを生成
+  #--------------------------------------------------------------------
+  def place_ranking(params = {})
+    payments = get_payments(params)
+    places = Hash.new {|h,k| h[k] = {:num => 0 , :amount => 0}}
+    payments.each do |pay|
+      place = pay["place"]
+      places[place][:num] += 1
+      places[place][:amount] += pay["amount"]
+    end
+    places.delete("") #未入力は除外
+    places = places.sort_by {|k , v| -v[:num]}
+    places
+  end
+
   # カテゴリ名をIDに変換する
   #--------------------------------------------------------------------
   def category_to_id(category)
