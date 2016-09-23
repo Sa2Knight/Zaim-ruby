@@ -1,4 +1,24 @@
-<h1>Zaimメニュー</h1>
+<h1>基本情報</h1>
+<table border="1">
+  <tr>
+    <td>入力回数</td>
+    <td><%= @input_count %> 回</td>
+  </tr>
+  <tr>
+    <td>総収入</td>
+    <td><%= to_kanji @total_income %> 円</td>
+  </tr>
+  <tr>
+    <td>総支出</td>
+    <td><%= to_kanji @total_spending %> 円</td>
+  </tr>
+  <tr>
+    <td>収益</td>
+    <td><%= to_kanji(@total_income - @total_spending) %> 円</td>
+  </tr>
+</table>
+
+<h1>集計メニュー</h1>
 <p>月ごとの支出集計</p>
 <ul>
   <li><a href="/monthly?link=累計">累計</a></li>

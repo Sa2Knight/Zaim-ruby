@@ -10,6 +10,9 @@ class ZaimController < Sinatra::Base
   # / - トップページ
   #--------------------------------------------------------------------
   get '/' do
+    @input_count = @zaim.total_input_count
+    @total_income = @zaim.total_income
+    @total_spending = @zaim.total_spending
     erb :index
   end
 
