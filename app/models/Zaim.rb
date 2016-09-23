@@ -28,9 +28,17 @@ class Zaim
 
   # 総支出額を取得
   #--------------------------------------------------------------------
-  def total_spending()
+  def total_spending
     sum = 0
     all_payments().each {|pay| sum += pay["amount"]}
+    return sum
+  end
+
+  # 総収入額を取得
+  #--------------------------------------------------------------------
+  def total_income
+    sum = 0
+    all_incomes().each {|income| sum += income["amount"]}
     return sum
   end
 
@@ -140,6 +148,13 @@ class Zaim
     @all_payments = get_payments()
   end
 
+  # 総収入データを取得及びキャッシュする
+  #--------------------------------------------------------------------
+  def all_incomes
+    @all_incomes and return @all_incomes
+    @all_incomes = get_incomes()
+  end
+
   # 以下、各種API呼び出しメソッド
   private
   def get_verify
@@ -148,6 +163,12 @@ class Zaim
 
   def get_payments(params = {})
     params["mode"] = "payment"
+    url = Util.make_url("home/money" , params)
+    get(url)["money"]
+  end
+
+  def get_incomes(params = {})
+    params["mode"] = "income"
     url = Util.make_url("home/money" , params)
     get(url)["money"]
   end
