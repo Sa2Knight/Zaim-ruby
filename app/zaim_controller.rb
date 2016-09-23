@@ -28,6 +28,9 @@ class ZaimController < Sinatra::Base
     if params[:target] == 'place'
       @title = "支払先"
       @ranking = @zaim.place_ranking
+    elsif params[:target] == 'category'
+      @title = "カテゴリー"
+      @ranking = @zaim.category_ranking
     end
     erb :ranking
   end
