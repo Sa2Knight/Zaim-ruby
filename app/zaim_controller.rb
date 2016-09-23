@@ -16,25 +16,8 @@ class ZaimController < Sinatra::Base
   # /monthly - 月ごとの集計を表形式で表示
   #--------------------------------------------------------------------
   get '/monthly/?' do
-    zaim_params = {}
-    category = params['category']
-    genre = params['genre']
-    comment = params['comment']
-    if category
-      @target = category
-      category_id = @zaim.category_to_id(category)
-      zaim_params['category_id'] = category_id
-    elsif genre
-      @target = genre
-      genre_id = @zaim.genre_to_id(genre)
-      zaim_params['genre_id'] = genre_id
-    elsif comment
-      @target = comment
-      zaim_params['comment'] = comment
-    else
-      @target = "累計"
-    end
-    @monthly = @zaim.monthly_spending(zaim_params)
+    @monthly = @zaim.monthly_spending(params)
+    @target = params['link']
     erb :monthly
   end
 
