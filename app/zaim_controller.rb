@@ -31,6 +31,9 @@ class ZaimController < Sinatra::Base
     elsif params[:target] == 'category'
       @title = "カテゴリー"
       @ranking = @zaim.category_ranking
+    elsif params[:target] == 'genre'
+      @title = "ジャンル"
+      @ranking = @zaim.genre_ranking
     end
     erb :ranking
   end

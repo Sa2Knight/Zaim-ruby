@@ -54,6 +54,20 @@ class Zaim
     ranking_with_name
   end
 
+  # ジャンル別のランキングを取得
+  # Todo: category_rankingとコード重複
+  #--------------------------------------------------------------------
+  def genre_ranking(params = {})
+    ranking_with_id = create_ranking("genre_id")
+    ranking_with_name = {}
+    id_to_name = id_to_genres(ranking_with_id.keys)
+    ranking_with_id.each do |k , v|
+      name = id_to_name[k]
+      ranking_with_name[name] = v
+    end
+    ranking_with_name
+  end
+
   # 月ごとの支出を取得
   #--------------------------------------------------------------------
   def monthly_spending(params = {})
