@@ -41,6 +41,19 @@ class Zaim
     create_ranking("place")
   end
 
+  # カテゴリ別のランキングを取得
+  #--------------------------------------------------------------------
+  def category_ranking(params = {})
+    ranking_with_id = create_ranking("category_id")
+    ranking_with_name = {}
+    id_to_name = id_to_categories(ranking_with_id.keys)
+    ranking_with_id.each do |k , v|
+      name = id_to_name[k]
+      ranking_with_name[name] = v
+    end
+    ranking_with_name
+  end
+
   # 月ごとの支出を取得
   #--------------------------------------------------------------------
   def monthly_spending(params = {})
