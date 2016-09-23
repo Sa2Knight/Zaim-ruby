@@ -28,10 +28,9 @@ class Zaim
 
   # 総支出額を取得
   #--------------------------------------------------------------------
-  def total_spending(params = {})
+  def total_spending()
     sum = 0
-    payments = get_payments(params)
-    payments.each {|pay| sum += pay["amount"]}
+    all_payments().each {|pay| sum += pay["amount"]}
     return sum
   end
 
@@ -134,13 +133,20 @@ class Zaim
     Util.array_to_hash(genres_detail , "id" , "name")
   end
 
+  # 全支出データを取得及びキャッシュする
+  #--------------------------------------------------------------------
+  def all_payments
+    @all_payments and return @all_payments
+    @all_payments = get_payments()
+  end
+
   # 以下、各種API呼び出しメソッド
   private
   def get_verify
     get("home/user/verify")
   end
 
-  def get_payments(params)
+  def get_payments(params = {})
     params["mode"] = "payment"
     url = Util.make_url("home/money" , params)
     get(url)["money"]
