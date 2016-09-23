@@ -19,6 +19,7 @@ class ZaimController < Sinatra::Base
     zaim_params = {}
     category = params['category']
     genre = params['genre']
+    comment = params['comment']
     if category
       @target = category
       category_id = @zaim.category_to_id(category)
@@ -27,6 +28,9 @@ class ZaimController < Sinatra::Base
       @target = genre
       genre_id = @zaim.genre_to_id(genre)
       zaim_params['genre_id'] = genre_id
+    elsif comment
+      @target = comment
+      zaim_params['comment'] = comment
     else
       @target = "累計"
     end
