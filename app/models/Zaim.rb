@@ -42,6 +42,12 @@ class Zaim
     return sum
   end
 
+  # 総入力回数を取得
+  #--------------------------------------------------------------------
+  def total_input_count
+    all_payments().count + all_incomes().count
+  end
+
   # 支払先別のランキングを取得
   #--------------------------------------------------------------------
   def place_ranking(params = {})
