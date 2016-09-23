@@ -9,10 +9,10 @@
   <tbody>
     <% @ranking.each_with_index do |(k , v) , idx| %>
     <tr>
-      <td style="text-align: center"><%= idx + 1 %></td>
-      <td style="text-align: center"><%= k %></td>
-      <td style="text-align: right"><%= v[:num] %></td>
-      <td style="text-align: right"><%= to_kanji v[:amount] %></td>
+      <td class="center"><%= idx + 1 %></td>
+      <td class="center"><%= k %></td>
+      <td class="right"><%= v[:num] %></td>
+      <td class="right"><%= to_kanji v[:amount] %></td>
     </tr>
     <% end %>
   </tbody>
