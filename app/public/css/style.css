@@ -5,3 +5,9 @@
 .right {
   text-align: right;
 }
+
+.link {
+  color:#0000ff;
+  text-decoration: underline;
+  cursor: pointer;
+}

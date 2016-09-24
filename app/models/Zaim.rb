@@ -51,7 +51,8 @@ class Zaim
   # 支払先別のランキングを取得
   #--------------------------------------------------------------------
   def place_ranking(params = {})
-    create_ranking("place")
+    ranking = create_ranking("place")
+    ranking.each {|r| r[:id] = r[:key]}
   end
 
   # カテゴリ別のランキングを取得
@@ -61,6 +62,7 @@ class Zaim
     id_to_name = id_to_categories(ranking.map{|r| r[:key]})
     ranking.each do |r|
       name = id_to_name[r[:key]]
+      r[:id] = r[:key]
       r[:key] = name
     end
   end
@@ -73,6 +75,7 @@ class Zaim
     id_to_name = id_to_genres(ranking.map{|r| r[:key]})
     ranking.each do |r|
       name = id_to_name[r[:key]]
+      r[:id] = r[:key]
       r[:key] = name
     end
   end
