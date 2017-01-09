@@ -1,7 +1,6 @@
 # coding: utf-8
 
-@path = `echo $ZAIM`
-@path.chomp!
+@path = '/home/vagrant/Zaim-ruby/'
 worker_processes 1
 working_directory @path
 timeout 300
