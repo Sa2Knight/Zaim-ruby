@@ -30,6 +30,23 @@
 
 ***
 
+### git clone後にファイルを追加
+
+Zaimアカウントとの連携情報をローカルに配置する
+
+./api
+
+```
+{
+  "key":"Zaimのコンシューマキー",
+  "secret":"Zaimのシークレットキー",
+  "oauth_token":"対象ユーザのOAuthToken",
+  "oauth_secret":"対象ユーザのOAuthSecret"
+}
+```
+
+***
+
 ###備考
 
 各種IDを決め打ちしたりしてるので汎用性はない模様
