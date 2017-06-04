@@ -52,47 +52,7 @@ class ZaimController < Sinatra::Base
   # / - トップページ
   #--------------------------------------------------------------------
   get '/' do
-    @input_count = @zaim.total_input_count
-    @total_income = @zaim.total_income
-    @total_spending = @zaim.total_spending
     erb :index
-  end
-
-  # /monthly - 月ごとの集計を表形式で表示
-  #--------------------------------------------------------------------
-  get '/monthly/?' do
-    @monthly = @zaim.monthly_spending(params)
-    @sum = @monthly.values.inject {|sum , v| sum + v}
-    @target = params['link']
-    erb :monthly
-  end
-
-  # /ranking - ランキングを表示
-  #---------------------------------------------------------------------
-  get '/ranking/?' do
-    if params[:target] == 'place'
-      @title = "支払先"
-      @ranking = @zaim.place_ranking
-    elsif params[:target] == 'category'
-      @title = "カテゴリー"
-      @ranking = @zaim.category_ranking
-    elsif params[:target] == 'genre'
-      @title = "ジャンル"
-      @ranking = @zaim.genre_ranking
-    end
-    erb :ranking
-  end
-
-  # helpers - ビューから利用する汎用メソッド
-  #---------------------------------------------------------------------
-  helpers do
-    def to_kanji(price)
-      price = price.to_i
-      price < 10000 and return price
-      m = price / 10000
-      s = price % 10000
-      return "#{m}万#{s}"
-    end
   end
 
 end
