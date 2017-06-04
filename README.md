@@ -49,6 +49,7 @@ Zaimアカウントとの連携情報をローカルに配置する
 
 ### nginxの設定
 
+```
 user  root;
 worker_processes  1;
 
@@ -102,6 +103,7 @@ http {
         }
     }
 }
+```
 
 ###備考
 
