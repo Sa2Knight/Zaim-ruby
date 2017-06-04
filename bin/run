@@ -1,0 +1,3 @@
+pid=$(cat shared/tmp/unicorn.pid 2>/dev/null)
+kill -QUIT $pid 2>/dev/null
+bundle exec unicorn -c unicorn.rb
