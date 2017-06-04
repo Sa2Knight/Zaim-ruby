@@ -7,12 +7,27 @@ class ZaimController < Sinatra::Base
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
 
+  # before - 全てのURLにおいて初めに実行される
+  #---------------------------------------------------------------------
+  before do
+    @zaim = Zaim.new
+  end
+
+  # ユーザの入力回数/総収入/総支出を取得
+  #--------------------------------------------------------------------
   get '/api/user' do
     Util.to_json(
       :input_count    => @zaim.total_input_count,
       :total_income   => @zaim.total_income,
       :total_spending => @zaim.total_spending,
     )
+  end
+
+  # 月ごとの支出額を取得
+  #--------------------------------------------------------------------
+  get '/api/payments/monthly' do
+    monthly = @zaim.monthly_spending(params)
+    Util.to_json(monthly)
   end
 
   # / - トップページ
@@ -59,12 +74,6 @@ class ZaimController < Sinatra::Base
       s = price % 10000
       return "#{m}万#{s}"
     end
-  end
-
-  # before - 全てのURLにおいて初めに実行される
-  #---------------------------------------------------------------------
-  before do
-    @zaim = Zaim.new
   end
 
 end
