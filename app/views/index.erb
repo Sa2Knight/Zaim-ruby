@@ -1,37 +1,8 @@
-<h1>基本情報</h1>
-<table border="1">
-  <tr>
-    <td>入力回数</td>
-    <td><%= @input_count %>回</td>
-  </tr>
-  <tr>
-    <td>総収入</td>
-    <td><%= to_kanji @total_income %>円</td>
-  </tr>
-  <tr>
-    <td>総支出</td>
-    <td><%= to_kanji @total_spending %>円</td>
-  </tr>
-  <tr>
-    <td>収益</td>
-    <td><%= to_kanji(@total_income - @total_spending) %>円</td>
-  </tr>
-</table>
+<nav class="nav has_shadow">
+  <div class="container">まいざいむ</div>
+</nav>
 
-<h1>集計メニュー</h1>
-<p>月ごとの支出集計</p>
-<ul>
-  <li><a href="/monthly?link=累計">累計</a></li>
-  <li><a href="/monthly?category_id=101&link=食費">食費</a></li>
-  <li><a href="/monthly?genre_id=10502&link=電気代">電気代</a></li>
-  <li><a href="/monthly?genre_id=10503&link=ガス代">ガス代</a></li>
-  <li><a href="/monthly?genre_id=10501&link=水道代">水道代</a></li>
-  <li><a href="/monthly?genre_id=9047786&comment=ポケモンGO&link=ポケモンGO">ポケモンGO</a></li>
-  <li><a href="/monthly?genre_id=10203&link=デグー関連">デグー関連</a></li>
-</ul>
-<p>ランキング</p>
-<ul>
-  <li><a href="/ranking?target=category">カテゴリ</a></li>
-  <li><a href="/ranking/?target=genre">ジャンル</a></li>
-  <li><a href="/ranking?target=place">支払先</a></li>
-</ul>
+<div class="tile">
+  <div class="tile is-4"><%= erb :sidemenu %></div>
+  <div class="tile is-8"><%= erb :content %></div>
+</div>
