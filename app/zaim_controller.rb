@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require_relative 'models/Zaim'
+require_relative 'models/zaim'
 require_relative 'models/util'
 
 class ZaimController < Sinatra::Base
