@@ -7,6 +7,14 @@ class ZaimController < Sinatra::Base
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
 
+  get '/api/user' do
+    Util.to_json(
+      :input_count    => @zaim.total_input_count,
+      :total_income   => @zaim.total_income,
+      :total_spending => @zaim.total_spending,
+    )
+  end
+
   # / - トップページ
   #--------------------------------------------------------------------
   get '/' do

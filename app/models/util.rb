@@ -50,4 +50,11 @@ class Util
     hash
   end
 
+  # RubyオブエクトをJSONに変換する
+  #---------------------------------------------------------------------
+  def self.to_json(obj)
+    obj.kind_of?(Hash) or obj.kind_of?(Array) or return ""
+    JSON.generate(obj)
+  end
+
 end

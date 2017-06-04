@@ -23,7 +23,7 @@ class Zaim
   #--------------------------------------------------------------------
   def total_spending
     sum = 0
-    @http.all_payments().each {|pay| sum += pay["amount"]}
+    all_payments().each {|pay| sum += pay["amount"]}
     return sum
   end
 
@@ -31,30 +31,30 @@ class Zaim
   #--------------------------------------------------------------------
   def total_income
     sum = 0
-    @http.all_incomes().each {|income| sum += income["amount"]}
+    all_incomes().each {|income| sum += income["amount"]}
     return sum
   end
 
   # 総入力回数を取得
   #--------------------------------------------------------------------
   def total_input_count
-    @http.all_payments().count + all_incomes().count
+    all_payments().count + all_incomes().count
   end
 
   # 支払先別のランキングを取得
   #--------------------------------------------------------------------
   def place_ranking(params = {})
-    ranking = @http.create_ranking("place")
+    ranking = create_ranking("place")
     ranking.each {|r| r[:id] = r[:key]}
   end
 
   # カテゴリ別のランキングを取得
   #--------------------------------------------------------------------
   def category_ranking(params = {})
-    ranking = @http.create_ranking("category_id")
+    ranking = create_ranking("category_id")
     id_to_name = id_to_categories(ranking.map{|r| r[:key]})
     ranking.each do |r|
-      name = @http.id_to_name[r[:key]]
+      name = id_to_name[r[:key]]
       r[:id] = r[:key]
       r[:key] = name
     end
@@ -67,7 +67,7 @@ class Zaim
     ranking = create_ranking("genre_id")
     id_to_name = id_to_genres(ranking.map{|r| r[:key]})
     ranking.each do |r|
-      name = @http.id_to_name[r[:key]]
+      name = id_to_name[r[:key]]
       r[:id] = r[:key]
       r[:key] = name
     end
@@ -147,54 +147,14 @@ class Zaim
   #--------------------------------------------------------------------
   def all_payments
     @all_payments and return @all_payments
-    @all_payments = get_payments()
+    @all_payments = @http.get_payments()
   end
 
   # 総収入データを取得及びキャッシュする
   #--------------------------------------------------------------------
   def all_incomes
     @all_incomes and return @all_incomes
-    @all_incomes = get_incomes()
-  end
-
-  # 以下、各種API呼び出しメソッド
-  private
-  def get_verify
-    get("home/user/verify")
-  end
-
-  def get_payments(params = {})
-    params["mode"] = "payment"
-    url = Util.make_url("home/money" , params)
-    get(url)["money"]
-  end
-
-  def get_incomes(params = {})
-    params["mode"] = "income"
-    url = Util.make_url("home/money" , params)
-    get(url)["money"]
-  end
-
-  def get_categories
-    get("home/category")["categories"]
-  end
-
-  def get_genres
-    get("home/genre")["genres"]
-  end
-
-  def create_payments(category , genre , amount)
-    post("home/money/payment" , category_id: category, genre_id: genre, amount: amount)
-  end
-
-  def get(url)
-    response = @access_token.get("#{API_URL}#{url}")
-    JSON.parse(response.body)
-  end
-
-  def post(url , params = nil)
-    response = @access_token.post("#{API_URL}#{url}" , params)
-    JSON.parse(response.body)
+    @all_incomes = @http.get_incomes()
   end
 
 end
