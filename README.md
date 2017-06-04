@@ -47,9 +47,62 @@ Zaimアカウントとの連携情報をローカルに配置する
 
 ***
 
+### nginxの設定
+
+user  root;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    #include /etc/nginx/conf.d/*.conf;
+
+    proxy_buffer_size   512k;
+    proxy_buffers   4 512k;
+    proxy_busy_buffers_size   512k;
+
+    upstream unicorn {
+        server unix:/root/my-zaim/shared/tmp/unicorn.sock;
+    }
+
+    server {
+    listen 3000;
+    client_max_body_size 2M;
+        server_name appname;
+        root /root/my-zaim/app/public;
+        access_log /root/my-zaim/logs/access.log;
+        error_log /root/my-zaim/logs/error.log;
+        try_files $uri/index.html $uri @unicorn;
+        location @unicorn {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_pass http://unicorn;
+        }
+    }
+}
+
 ###備考
 
 各種IDを決め打ちしたりしてるので汎用性はない模様
-
-PHPに移植しました
-https://github.com/Sa2Knight/zaim-php

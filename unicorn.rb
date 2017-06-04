@@ -1,6 +1,6 @@
 # coding: utf-8
 
-@path = '/home/vagrant/Zaim-ruby/'
+@path = '/root/my-zaim/'
 worker_processes 1
 working_directory @path
 timeout 300
